@@ -36,13 +36,11 @@ sandbox/*
 **/*.gbw
 !**/*_avas.gbw
 **/*.json
-!**/*.property.json
 !**/*_dmrg_circuit.json
 !**/*_dmrg_info.json
 !**/*_results.json
 !**/*_check.json
-!**/*_rohf.json
-!**/FeSH4.json
+FeSH4/**/*.out
 FeSH4/rohf/*
 dmrg_mult2.py
 dmrg_mult4.py
