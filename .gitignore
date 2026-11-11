@@ -40,8 +40,8 @@ sandbox/*
 !**/*_dmrg_info.json
 !**/*_results.json
 !**/*_check.json
-FeSH4/**/*.out
-FeSH4/rohf/*
+FeSH4/**/*
+!FeSH4/*.xyz
 dmrg_mult2.py
 dmrg_mult4.py
 dmrg_mult6.py
