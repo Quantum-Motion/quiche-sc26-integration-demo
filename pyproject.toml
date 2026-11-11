@@ -1,0 +1,57 @@
+# The Fe(SH)4- QPE demo: everything FeSH4_demo.ipynb and visualisation.py need.
+#
+# setup-demo.sh installs this into the virtual environment "quiche-cudaq-integration-demo":
+#     pip install -e .
+#
+# QUICHE is not on PyPI, and the demo needs APIs that so far only exist on the
+# feature/integration-demo branch, so it is installed straight from GitHub (see below).
+# pip builds it from source: that needs git and a C++ compiler (and OpenMP; on macOS
+# `brew install libomp`). CMake comes from PyPI if it isn't installed.
+#
+# Not installable with pip, so not listed here:
+#   - ORCA itself (see the paths in the first code cell of the notebook);
+#   - Julia, MPSCircuits.jl: only needed to recompute the DMRG guide states,
+#     which are pre-calculated in orca_output/.
+
+[project]
+name = "quiche-cudaq-integration-demo"
+version = "0.1.0"
+description = "Fe(SH)4- spin states with QPE: QUICHE and CUDA-Q on CPU and GPU."
+readme = "README.md"
+requires-python = ">=3.12, <3.14"  # QUICHE needs 3.12+; CUDA-Q 0.15 has no wheels for 3.14
+dependencies = [
+    # QUICHE from the demo branch, with its CUDA-Q extra (cudaq 0.15.x, cudaq-algorithms;
+    # cuStateVec for the GPU backend comes with cudaq).
+    "pyquiche[cudaq] @ git+https://github.com/Quantum-Motion/quiche.git@feature/integration-demo",
+
+    # ORCA: its Python interface, and Open MPI for parallel ORCA runs (wheels for Linux and macOS).
+    # ORCA needs the Open MPI series it was built against: 4.1.8 works with ORCA 7.0.0 beta 4
+    # and ORCA 6.1.1 (built against 4.1.1), where 5.0 fails at start-up.
+    "orca-pi>=2.0",
+    "openmpi==4.1.8",
+
+    # Results and figures.
+    "numpy",         # version bounds come from QUICHE
+    "pandas>=2.2",
+    "plotly>=5.8",   # 5.8+ for dotted grid lines (griddash)
+    "nbformat>=4.2", # lets Plotly show figures in notebooks
+    "ipython",       # display() of the centred figures and tables
+
+    # Jupyter, and running the notebook without a browser: jupyter nbconvert --execute.
+    "ipykernel",
+    "jupyterlab",
+    "nbconvert",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+# Make visualisation.py and statePrep/ importable from anywhere, not only from this directory.
+[tool.setuptools]
+py-modules = ["visualisation"]
+
+[tool.setuptools.packages.find]
+include = ["statePrep*"]
+exclude = ["*.__pycache__"]
+namespaces = true  # statePrep/ has no __init__.py
