@@ -2,7 +2,7 @@
 ---  
 
 <p align="center">
-  <img src="img/pipeline_diagram.png" width="700"><br>
+  <img src="../img/pipeline_diagram.png" width="700"><br>
   <em>End-to-end integration of different software stacks using QUICHE and CUDA-Q</em>
 </p>
 
@@ -21,7 +21,7 @@ The result is that, from the user's perspective, the workflow is a short Python 
 ### Spin state energetics of iron-sulfur systems  
 
 <p align="center">
-  <img src="img/Fe(SH)4-.png" alt="Fe(SH)4- structure" width="400"><br>
+  <img src="../img/Fe(SH)4-.png" alt="Fe(SH)4- structure" width="400"><br>
   <em>Chemical structure of Fe(SH)<sub>4</sub><sup>&minus;</sup></em>
 </p>
 
