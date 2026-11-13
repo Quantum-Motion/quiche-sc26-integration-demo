@@ -33,8 +33,8 @@ This pipeline will allow us to push the limits of what chemical problems we can 
 
 ### About the authors
 
-<ins>Xeno De Vriendt</ins> is an Applications Scientist at Quantum Motion. Xeno obtained a PhD in Chemistry from Ghent University for research on (classical) quantum chemical method development, after which he worked as a post-doctoral researcher in the quantum computing team at BASF Ludwigshafen. At Quantum Motion, Xeno is working on identifying use cases for quantum computing and algorithm development, both with a focus on chemistry.
+<ins>[Xeno De Vriendt](https://www.linkedin.com/in/xeno-de-vriendt/)</ins> is an Applications Scientist at Quantum Motion. Xeno obtained a PhD in Chemistry from Ghent University for research on (classical) quantum chemical method development, after which he worked as a post-doctoral researcher in the quantum computing team at BASF Ludwigshafen. At Quantum Motion, Xeno is working on identifying use cases for quantum computing and algorithm development, both with a focus on chemistry.
 
-<ins>Zohim Chandani</ins> is a Quantum Algorithms and Applications Engineer at NVIDIA. His work spans scaling up quantum algorithms, use of AI across the quantum stack and the utility of quantum-GPU supercomputing.
+<ins>[Zohim Chandani](https://www.linkedin.com/in/zohim-chandani/)</ins> is a Quantum Algorithms and Applications Engineer at NVIDIA. His work spans scaling up quantum algorithms, use of AI across the quantum stack and the utility of quantum-GPU supercomputing.
 
-<ins>Thomas R. Bromley</ins> is the Applications Lead at Quantum Motion, working to identify quantum computing use cases and develop the underlying quantum algorithms. Tom has over a decade of experience in quantum computing and leads a team of researchers and software developers to build applications that complement Quantum Motion's silicon spin quantum dot hardware.
+<ins>[Thomas R. Bromley](https://www.linkedin.com/in/thomas-r-bromley-a53a28130/)</ins> is the Applications Lead at Quantum Motion, working to identify quantum computing use cases and develop the underlying quantum algorithms. Tom has over a decade of experience in quantum computing and leads a team of researchers and software developers to build applications that complement Quantum Motion's silicon spin quantum dot hardware.
