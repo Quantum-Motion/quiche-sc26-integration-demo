@@ -1,35 +1,39 @@
 """Figures and tables for the Fe(SH)4- QPE demo.
 
-Each function shows a Plotly figure:
+Each function saves a Plotly figure as a PNG (with Kaleido) and doesn't show it:
 
-    plot_energy_analysis                -> energy error and spin ladder vs phase qubits, + spin-ordering table
+    plot_energy_analysis                -> energy error and spin ladder vs phase qubits (+ shows a spin-ordering table)
     plot_runtime_analysis               -> GPU and CPU walltimes vs phase qubits
     plot_speedup_analysis               -> GPU speed-up over the CPU vs phase qubits
     plot_runtime_for_chemical_accuracy  -> walltime to chemical accuracy per spin state
 
+The notebook shows the PNGs in Markdown cells (<img src="img/...">), so they also show on GitHub,
+where the JavaScript of interactive Plotly figures doesn't run. Rerunning a function updates its PNG.
+
 All four read the saved results, so they work without rerunning any calculation:
 
-    results_file         the QPE results JSON (e.g. orca_output/qpe_trotter_reps_1_results.json)
-    orca_results_file    the ORCA summary JSON (orca_output/orca_results.json), for the CASSCF energies
+    results_file         the QPE results JSON (e.g. output/qpe_trotter_reps_1_results.json)
+    orca_results_file    the ORCA summary JSON (output/orca_results.json), for the CASSCF energies
+    png_file             where to save the figure, e.g. img/energy_analysis.png
 """
+
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from IPython.display import HTML, display, Image
+from IPython.display import HTML, display
 from plotly.subplots import make_subplots
 
-PLOTLY_JS = True
-STATIC_FIGURES = True
 CHEM_ACC = 1.6e-3  # Ha
 
 # Backend labels, used as subplot titles and legend names.
 GPU_LABEL = "GPU (1x NVIDIA T4)"
 CPU_LABEL = "CPU (4 cores)"
 
-# Where the notebook loads Plotly's JavaScript from for the centered figures:
-# "cdn" keeps the notebook small (needs internet in the browser), True embeds it in every figure (~4 MB each).
-PLOTLY_JS = "cdn"
+# Pixel density of the saved PNGs: 2x the figure size, so they stay sharp on high-resolution screens.
+# Show them at the figure's own width (<img width="...">), or they appear twice as large.
+PNG_SCALE = 2
 
 # Extra space between subplot titles and their plots, in pixels.
 TITLE_SHIFT = 20
@@ -87,15 +91,11 @@ def extrapolate_cpu_walltime(last_cpu_run, target_run):
     return last_cpu_run["walltime_s"] * cost(target_run) / cost(last_cpu_run)
 
 
-def show_centered_figure(fig):
-    """Show a Plotly figure: a PNG for GitHub, or a centred interactive figure."""
-    if STATIC_FIGURES:
-        # Render at 2x for sharpness, but display at the figure's own width.
-        png = fig.to_image(format="png", scale=2)
-        display(Image(png, width=fig.layout.width))
-        return
-    html = fig.to_html(full_html=False, include_plotlyjs=PLOTLY_JS)
-    display(HTML(f'<div style="display: flex; justify-content: center;">{html}</div>'))
+def save_figure(fig, png_file):
+    """Save a Plotly figure as a PNG (Kaleido), creating the directory if needed. Nothing is shown."""
+    png_file = Path(png_file)
+    png_file.parent.mkdir(parents=True, exist_ok=True)
+    fig.write_image(png_file, scale=PNG_SCALE)
 
 
 def show_centered_table(table):
@@ -116,7 +116,7 @@ def runs(results, backend, multiplicity):
 # Figure 1: energy error and spin ladder
 # ----------------------------------------------------------------------------------------------
 
-def plot_energy_analysis(results_file, orca_results_file):
+def plot_energy_analysis(results_file, orca_results_file, png_file):
     """Energy error (left) and spin ladder relative to the sextet (right) vs phase qubits, GPU runs.
 
     Below the figure: a table showing, per number of phase qubits, whether QPE gives the correct
@@ -166,7 +166,7 @@ def plot_energy_analysis(results_file, orca_results_file):
     fig.update_yaxes(title="|E<sub>QPE</sub> − E<sub>FCI</sub>| (Ha)", type="log", dtick=1, exponentformat="power",
                      row=1, col=1, **AXIS_STYLE)
     fig.update_yaxes(title="E − E<sub>CASSCF</sub>(2S+1 = 6) (mHa)", row=1, col=2, **AXIS_STYLE)
-    show_centered_figure(fig)
+    save_figure(fig, png_file)
 
     # Table: CASSCF reference first, then the spin ordering and the gaps between neighbouring
     # spin states (quartet above sextet, doublet above quartet) per number of phase qubits.
@@ -193,7 +193,7 @@ def plot_energy_analysis(results_file, orca_results_file):
 # Figure 2: walltimes on GPU and CPU
 # ----------------------------------------------------------------------------------------------
 
-def plot_runtime_analysis(results_file):
+def plot_runtime_analysis(results_file, png_file):
     """Walltime vs phase qubits: GPU (left) and CPU (right), with the CPU extrapolated where only the GPU ran."""
     results = load_results(results_file)
 
@@ -240,14 +240,14 @@ def plot_runtime_analysis(results_file):
     fig.update_xaxes(title="Phase qubits", dtick=1, range=x_range, **AXIS_STYLE)
     fig.update_yaxes(type="log", dtick=1, exponentformat="power", **AXIS_STYLE)  # one grid line per power of ten
     fig.update_yaxes(title="Walltime (s)", row=1, col=1)
-    show_centered_figure(fig)
+    save_figure(fig, png_file)
 
 
 # ----------------------------------------------------------------------------------------------
 # Figure 3: GPU speed-up over the CPU
 # ----------------------------------------------------------------------------------------------
 
-def plot_speedup_analysis(results_file):
+def plot_speedup_analysis(results_file, png_file):
     """GPU speed-up over the CPU (CPU walltime / GPU walltime) vs phase qubits, per spin state.
 
     Where both backends ran the same circuit, the speed-up is measured (solid). The CPU only ran the
@@ -302,14 +302,14 @@ def plot_speedup_analysis(results_file):
     fig.update_xaxes(title="Phase qubits", dtick=1, range=x_range, **AXIS_STYLE)
     fig.update_yaxes(title="Speed-up (CPU walltime / GPU walltime)", type="log", dtick=1, exponentformat="power",
                      **AXIS_STYLE)  # one grid line per power of ten
-    show_centered_figure(fig)
+    save_figure(fig, png_file)
 
 
 # ----------------------------------------------------------------------------------------------
 # Figure 4: walltime to chemical accuracy
 # ----------------------------------------------------------------------------------------------
 
-def plot_runtime_for_chemical_accuracy(results_file):
+def plot_runtime_for_chemical_accuracy(results_file, png_file):
     """Walltime of the first run within chemical accuracy, per spin state, on GPU and CPU (bar chart).
 
     The first run within chemical accuracy is the GPU run with the fewest phase qubits whose error
@@ -360,4 +360,4 @@ def plot_runtime_for_chemical_accuracy(results_file):
     fig.update_xaxes(showline=True, linecolor="black", linewidth=2, ticks="outside", tickcolor="black")
     fig.update_yaxes(title="Walltime to chemical accuracy (s)", type="log", dtick=1, exponentformat="power",
                      range=[np.log10(y_min / 3), np.log10(y_max * 30)], **AXIS_STYLE)
-    show_centered_figure(fig)
+    save_figure(fig, png_file)

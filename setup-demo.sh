@@ -215,24 +215,6 @@ print(cudaq.__version__)
 print("All demo imports work.")
 PYEOF
 
-# Kaleido (static PNGs of the figures, so they show on GitHub) draws them with Chrome.
-# Use the installed Chrome if Kaleido finds one; otherwise download Chrome for Testing
-# into the venv (no admin rights needed), then check again that a figure renders.
-render_test='import plotly.graph_objects as go; go.Figure(go.Scatter(y=[1, 2])).to_image(format="png")'
-if ! python -c "$render_test" >/dev/null 2>&1; then
-    echo "No Chrome that Kaleido can use; downloading one into the venv."
-    python -c "import kaleido; kaleido.get_chrome_sync()"
-    if ! python -c "$render_test"; then
-        echo "Error: Kaleido still can't render a figure with Chrome." >&2
-        if [ "$(uname -s)" = "Linux" ]; then
-            echo "Chrome may be missing system libraries (e.g. libnss3, libatk-bridge2.0-0," >&2
-            echo "libgbm1, libasound2); install them with your package manager." >&2
-        fi
-        exit 1
-    fi
-fi
-echo "Kaleido can render static figures."
-
 # Register the venv as a Jupyter kernel for the current user (replaces an existing
 # kernel of the same name, e.g. one from an older venv).
 python -m ipykernel install --user --name "$KERNEL_NAME" --display-name "Python ($env_name)"
