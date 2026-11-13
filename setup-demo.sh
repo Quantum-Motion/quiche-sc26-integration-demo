@@ -206,7 +206,7 @@ python -m pip install -e "$demo_dir"
 
 # Check that everything the notebook imports is there, before calling it a success.
 python - <<'PYEOF'
-import cudaq, cudaq_algorithms, opi, pandas, plotly, nbformat
+import cudaq, cudaq_algorithms, opi, pandas, plotly, nbformat, kaleido
 import quiche, quiche.io.fcidump, quiche.cudaq, quiche.dispatch
 from quiche.cudaq import measured_circuit_kernel, sample_post_processor, textbook_qpe_circuit
 from quiche.dispatch import QPESpec
@@ -214,6 +214,24 @@ import statePrep.cudaq_circuit_loading, visualisation
 print(cudaq.__version__)
 print("All demo imports work.")
 PYEOF
+
+# Kaleido (static PNGs of the figures, so they show on GitHub) draws them with Chrome.
+# Use the installed Chrome if Kaleido finds one; otherwise download Chrome for Testing
+# into the venv (no admin rights needed), then check again that a figure renders.
+render_test='import plotly.graph_objects as go; go.Figure(go.Scatter(y=[1, 2])).to_image(format="png")'
+if ! python -c "$render_test" >/dev/null 2>&1; then
+    echo "No Chrome that Kaleido can use; downloading one into the venv."
+    python -c "import kaleido; kaleido.get_chrome_sync()"
+    if ! python -c "$render_test"; then
+        echo "Error: Kaleido still can't render a figure with Chrome." >&2
+        if [ "$(uname -s)" = "Linux" ]; then
+            echo "Chrome may be missing system libraries (e.g. libnss3, libatk-bridge2.0-0," >&2
+            echo "libgbm1, libasound2); install them with your package manager." >&2
+        fi
+        exit 1
+    fi
+fi
+echo "Kaleido can render static figures."
 
 # Register the venv as a Jupyter kernel for the current user (replaces an existing
 # kernel of the same name, e.g. one from an older venv).

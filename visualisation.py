@@ -16,10 +16,11 @@ All four read the saved results, so they work without rerunning any calculation:
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from IPython.display import HTML, display
+from IPython.display import HTML, display, Image
 from plotly.subplots import make_subplots
 
 PLOTLY_JS = True
+STATIC_FIGURES = True
 CHEM_ACC = 1.6e-3  # Ha
 
 # Backend labels, used as subplot titles and legend names.
@@ -87,7 +88,12 @@ def extrapolate_cpu_walltime(last_cpu_run, target_run):
 
 
 def show_centered_figure(fig):
-    """Show a Plotly figure centered in the notebook output (fig.show() always puts it on the left)."""
+    """Show a Plotly figure: a PNG for GitHub, or a centred interactive figure."""
+    if STATIC_FIGURES:
+        # Render at 2x for sharpness, but display at the figure's own width.
+        png = fig.to_image(format="png", scale=2)
+        display(Image(png, width=fig.layout.width))
+        return
     html = fig.to_html(full_html=False, include_plotlyjs=PLOTLY_JS)
     display(HTML(f'<div style="display: flex; justify-content: center;">{html}</div>'))
 
