@@ -1,4 +1,4 @@
-# QUICHE + CUDA-Q: A fully integrated end-to-end quantum chemistry pipeline
+# A fully integrated end-to-end quantum chemistry pipeline with QUICHE and NVIDIA CUDA-Q
 ---  
 
 <p align="center">
@@ -6,7 +6,7 @@
   <em>End-to-end integration of different software stacks using QUICHE and CUDA-Q</em>
 </p>
 
-Quantum Motion and NVIDIA are working together to provide a fully integrated quantum chemistry pipeline for resource estimation and simulation for quantum computing applications. In parallel, [QUICHE](https://quantummotion.com/quiche-project-uk-germany-collaboration-bringing-chemistry-software-into-the-quantum-computing-era/) is a joint project between Quantum Motion, [FACCTs](https://www.faccts.de/) and [Riverlane](https://www.riverlane.com/), which aims to integrate quantum computing into standard quantum chemistry workflows including the industry-standard ORCA library. We have now added CUDA-Q as a new prototype backend to QUICHE, continuing our work towards building an end-to-end pipeline for quantum chemistry. The [CUDA-Q Algorithms](https://nvidia.github.io/cudaq-algorithms/) layer provides high-level abstractions for QUICHE to interact with, allowing easy dispatch to high performance simulators in the CUDA-Q ecosystem as well as resource estimation functionality. In [our latest demo](https://github.com/Quantum-Motion/quiche-sc26-integration-demo/blob/main/integration-demo/FeSH4_demo.ipynb), we show off these new simulation capabilities by starting from an ORCA calculation, setting up the quantum algorithm using QUICHE and CUDA-Q and finally running the simulation on an NVIDIA backend. 
+Quantum Motion and NVIDIA are working together to provide a fully integrated quantum chemistry pipeline for resource estimation and simulation for quantum computing applications. In parallel, [QUICHE](https://quantummotion.com/quiche-project-uk-germany-collaboration-bringing-chemistry-software-into-the-quantum-computing-era/) is a joint project between Quantum Motion, [FACCTs](https://www.faccts.de/) and [Riverlane](https://www.riverlane.com/), which aims to integrate quantum computing into standard quantum chemistry workflows including the industry-standard ORCA library. We have now added NVIDIA CUDA-Q as a new prototype backend to QUICHE, continuing our work towards building an end-to-end pipeline for quantum chemistry. The [CUDA-Q Algorithms](https://nvidia.github.io/cudaq-algorithms/) layer provides high-level abstractions for QUICHE to interact with, allowing easy dispatch to high performance simulators in the NVIDIA CUDA-Q ecosystem as well as resource estimation functionality. In [our latest demo](https://github.com/Quantum-Motion/quiche-sc26-integration-demo/blob/main/integration-demo/FeSH4_demo.ipynb), we show off these new simulation capabilities by starting from an ORCA calculation, setting up the quantum algorithm using QUICHE and NVIDIA CUDA-Q and finally running the simulation on an NVIDIA accelerated computing backend.
 
 ### One pipeline, different software stacks
 
@@ -14,7 +14,7 @@ A quantum algorithm for chemistry is only useful if a chemist can load a molecul
 
 - [ORCA](https://www.faccts.de/orca/) is an industry-standard quantum chemistry package. We use it to run the classical calculations and to export the active-space integrals as a standard FCIDUMP file.
 - [QUICHE](https://github.com/Quantum-Motion/quiche) is the glue. It reads the FCIDUMP, and lets the user specify the algorithm at a high level: which Hamiltonian, which flavour of quantum phase estimation (QPE), which simulation method, and, crucially, a target energy error.
-- [CUDA-Q](https://nvidia.github.io/cuda-quantum/latest/using/quick_start.html) and [CUDA-Q Algorithms](https://nvidia.github.io/cudaq-algorithms/) make up NVIDIA's open-source platform for hybrid quantum-classical programming. CUDA-Q Algorithms builds the qubit Hamiltonians, and the QPE circuits that QUICHE generates are run as CUDA-Q kernels, on NVIDIA's high-performance backend.  
+- [CUDA-Q](https://nvidia.github.io/cuda-quantum/latest/using/quick_start.html) is NVIDIA's open-source platform for hybrid quantum-classical programming. In particular, [CUDA-Q Algorithms](https://nvidia.github.io/cudaq-algorithms/) builds the qubit Hamiltonians, and the QPE circuits that QUICHE generates are run as CUDA-Q kernels, on NVIDIA's high-performance backend.
 
 The result is that, from the user's perspective, the workflow is a short Python notebook: ORCA in, energies out, with no hand-written circuits or manual conversion steps in between. The same QUICHE specification that drives the simulation is also the starting point for resource estimation, meaning that, in the era of fault-tolerant quantum computing (FTQC), our pipeline stays virtually unchanged.  
   
