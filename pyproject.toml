@@ -33,8 +33,8 @@ dependencies = [
     # Results and figures.
     "numpy",         # version bounds come from QUICHE
     "pandas>=2.2",
-    "plotly>=6.1.1", # 5.8+ for dotted grid lines (griddash), 6.1.1+ for Kaleido 1.x
-    "kaleido>=1.0",  # static PNGs of the figures, so they show on GitHub; needs Chrome (setup-demo.sh)
+    "plotly>=6.1.1, <7", # 5.8+ for dotted grid lines (griddash), 6.1.1+ for Kaleido 1.x
+    "kaleido==0.2.1",  # static PNGs of the figures, so they show on GitHub;
     "nbformat>=4.2", # lets Plotly show figures in notebooks
     "ipython",       # display() of the centred figures and tables
 
