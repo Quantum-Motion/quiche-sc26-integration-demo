@@ -31,7 +31,7 @@ To showcase the capability of this new integration, we set up a small chemistry 
 
 This pipeline will allow us to push the limits of what chemical problems we can tackle, ranging from larger, more complex simulations up to resource estimates for systems that are no longer classically simulable. The full demo is available [here](../FeSH4_demo.ipynb).
 
-If you would like to know more about our ongoing work on quantum chemistry and fault tolerant quantum computing, check out our blogposts on [fault tolerant compilation](https://quantummotion.com/automating-fault-tolerant-compilation-for-quantum-motions-silicon-spin-architectures-using-nvidia-cuda-q-logical/), [quantum chemistry state preparation](https://quantummotion.com/state-preparation-for-quantum-chemistry-with-quantum-motion-and-nvidia-cuda-q/), and our earlier [QUICHE project announcement](https://quantummotion.com/quiche-project-uk-germany-collaboration-bringing-chemistry-software-into-the-quantum-computing-era/).
+If you would like to know more about our ongoing work on quantum chemistry and fault tolerant quantum computing, check out our blog posts on [fault tolerant compilation](https://quantummotion.com/automating-fault-tolerant-compilation-for-quantum-motions-silicon-spin-architectures-using-nvidia-cuda-q-logical/), [quantum chemistry state preparation](https://quantummotion.com/state-preparation-for-quantum-chemistry-with-quantum-motion-and-nvidia-cuda-q/), and our earlier [QUICHE project announcement](https://quantummotion.com/quiche-project-uk-germany-collaboration-bringing-chemistry-software-into-the-quantum-computing-era/).
 
 ### About the authors
 
