@@ -1,0 +1,62 @@
+# Python
+__pycache__
+.ipynb_checkpoints
+.venv
+.vscode
+.python-version
+*.egg-info
+dist
+python/examples/H2.zip
+python/examples/H2.hdf5
+
+# C++
+compile_commands.json
+.cache
+build
+
+# Libs
+*.so
+*.dylib
+*.dll
+
+# Docs
+docs/_build
+
+# Demo: ORCA by-products (inputs are rewritten by the notebooks)
+sandbox/*
+**/*.2jsonout
+**/*.bibtex
+**/*.densities
+**/*.densitiesinfo
+**/*.ges
+**/*.inp
+**/*.property.txt
+**/*.tmp
+**/*.tmp.*
+**/*.gbw
+!**/*_avas.gbw
+**/*.json
+!**/*_dmrg_circuit.json
+!**/*_dmrg_info.json
+!**/*_results.json
+!**/*_check.json
+FeSH4/**/*
+!FeSH4/*.xyz
+dmrg_mult2.py
+dmrg_mult4.py
+dmrg_mult6.py
+
+# Demo: intermediate RHF/AVAS runs and generated CUDA-Q kernel modules
+**/rhf/
+**/*_avas.out
+**/*_avas.property.json
+generated_kernel_module.py
+
+# Demo: outputs of QPE_error-longrun.ipynb, written next to the H2 geometry
+H2/H2.*
+!H2/H2.xyz
+H2/H2_dmrg_circuit.json
+
+# Other
+.DS_Store
+*.log
