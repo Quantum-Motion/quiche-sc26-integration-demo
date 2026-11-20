@@ -1,4 +1,4 @@
-# Fe(SH)<sub>4</sub><sup>−</sup> spin state energetics using QUICHE and CUDA-Q
+# Fe(SH)<sub>4</sub><sup>−</sup> spin state energetics using QUICHE and NVIDIA CUDA-Q
 
 An end-to-end quantum chemistry pipeline: ORCA computes the active-space integrals, QUICHE sets up quantum phase estimation (QPE) from a target error budget, and CUDA-Q runs the circuits on a CPU or an NVIDIA GPU. The target is the spin ladder (doublet, quartet, sextet) of Fe(SH)<sub>4</sub><sup>−</sup> in a CAS(5e,5o) active space. For the background, see the [blog post](blogpost/README.md).
 
