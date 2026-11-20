@@ -42,6 +42,7 @@ sandbox/*
 !**/*_check.json
 FeSH4/**/*
 !FeSH4/*.xyz
+*.out
 dmrg_mult2.py
 dmrg_mult4.py
 dmrg_mult6.py

@@ -5,20 +5,14 @@ An end-to-end quantum chemistry pipeline: ORCA computes the active-space integra
 ## Repository structure
 
 ```
-├── FeSH4_demo.ipynb          # The demo notebook
 ├── setup-demo.sh             # Creates the virtual environment and Jupyter kernel
 ├── pyproject.toml            # The demo's dependencies, including QUICHE from GitHub
-├── visualisation.py          # Plotly figures used in the analysis part of the notebook
-├── statePrep/
-│   └── cudaq_circuit_loading.py  # Turns the DMRG circuits (JSON) into CUDA-Q kernels
-├── FeSH4/
-│   └── fesh4.xyz             # Geometry; ORCA writes its calculations next to it
-├── output/                   # Pre-calculated results, so the notebook runs in minutes
-│   ├── FeSH4_mult{2,4,6}.fcidump              # Active-space integrals from ORCA (CASSCF)
-│   ├── FeSH4_mult{2,4,6}_dmrg_circuit.json    # DMRG guide-state circuits (MPSCircuits.jl)
-│   ├── FeSH4_mult{2,4,6}_dmrg_info.json       # DMRG energy, <S²> and circuit fidelity
-│   ├── orca_results.json                      # CASSCF reference energies and runtimes
-│   └── qpe_trotter_reps_1_results.json        # QPE energies and runtimes, CPU and GPU
+├── integration-demo/
+│   ├── FeSH4_demo.ipynb      # The demo notebook
+│   ├── visualisation.py      # Plotly routines used in the analysis part of the notebook
+│   ├── statePrep/            # Turns the DMRG circuits (JSON) into CUDA-Q kernels
+│   ├── FeSH4/                # Geometry; ORCA writes its calculations next to it
+│   └── output/               # Pre-calculated results, so the notebook runs in minutes
 ├── img/                      # Figures for the notebook and the blog post
 └── blogpost/README.md        # Accompanying blog post
 ```
